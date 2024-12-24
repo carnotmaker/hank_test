@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #61bbe8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 50px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        main h1,
+        h2 {
+            color: #5568be;
+        }
+
+        main img {
+            border-radius: 10px;
+            /* 圓角的半徑 */
+            width: 200px;
+
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #61bbe8;
+            color: white;
+        }
+
+        a {
+            color: #978df2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .photo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .photo-section img {
+            max-width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .photo-section .name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .photo-section .handle {
+            font-size: 1.5rem;
+            color: #777;
+        }
+
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #42A5F5;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button :hover {
+            background-color: #1E88E5;
+            transform: scale(1.05);
+        }
+
+        .work {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            /* 確保整體置中 */
+        }
+
+        .work-item {
+            display: flex;
+            flex-direction: column;
+            /* 垂直排列 */
+            align-items: center;
+            /* 子元素水平居中 */
+            gap: 10px;
+            /* 圖片與文字間距 */
+            max-width: 310px;
+            /* 避免圖片過寬 */
+            margin: 0 auto;
+            /* 居中排列 */
+            text-align: center;
+            /* 文字置中 */
+        }
+
+
+        .work-item img {
+            width: 100%;
+            /* 確保圖片適應容器 */
+            max-width: 310px;
+            /* 限制圖片寬度 */
+            height: auto;
+            /* 保持比例 */
+            border-radius: 15px;
+            object-fit: cover;
+            /* 確保圖片不變形 */
+        }
+
+
+        .work-item p {
+            margin: 10px 0;
+            /* 增加上下間距 */
+        }
+
+        .work-item a {
+            text-decoration: none;
+            color: inherit;
+            margin-top: 10px;
+            /* 按鈕與內容分隔 */
+            display: block;
+            /* 確保按鈕不與圖片重疊 */
+        }
+
+
+        .work-item a:hover {
+            transform: scale(1.05);
+        }
+
+        .work-item a:visited,
+        .work-item a:hover,
+        .work-item a:active {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /*證照、證書*/
+        .certificate {
+            display: flex;
+            flex-wrap: wrap;
+            /* 支持多行換行 */
+            justify-content: center;
+            /* 水平置中 */
+            gap: 20px;
+            /* 設定項目之間的間距 */
+            text-align: center;
+            /* 確保文字置中 */
+        }
+
+        .certificate-item {
+            display: flex;
+            flex-direction: column;
+            /* 垂直排列 */
+            align-items: center;
+            /* 水平置中 */
+            gap: 10px;
+            /* 圖片與文字的間距 */
+            max-width: 200px;
+            /* 控制每個項目的最大寬度 */
+            text-align: center;
+            /* 確保文字置中 */
+        }
+
+        .certificate-item img {
+            width: 200px;
+            /* 固定圖片寬度 */
+            height: 130px;
+            /* 保持比例 */
+            border-radius: 10px;
+            /* 圓角效果 */
+            object-fit: cover;
+            /* 確保圖片不變形 */
+            border: 2px solid #ccc;
+            /* 添加邊框 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* 過渡效果 */
+        }
+
+        .certificate-item img:hover {
+            transform: scale(1.1);
+            /* 放大效果 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* 增加陰影效果 */
+            border-color: #61bbe8;
+            /* 改變邊框顏色 */
+        }
+
+
+
+        /*愛好*/
+        .hobby {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            /* 確保整體置中 */
+        }
+
+        .hobby-item {
+            display: flex;
+            flex-direction: column;
+            /* 垂直排列 */
+            align-items: center;
+            /* 水平置中 */
+            gap: 10px;
+            max-width: 200px;
+            /* 控制每個項目的寬度 */
+
+        }
+
+        .hobby-item img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .hobby-item .hobby-text {
+            font-size: 1rem;
+            margin: 0;
+
+        }
+
+        .hobby-item a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease, transform 0.2s ease;
+
+        }
+
+        .hobby-item a:hover {
+            transform: scale(1.05);
+        }
+
+        .hobby-item a:visited,
+        .hobby-item a:hover,
+        .hobby-item a:active {
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>關於我們</h1>
+    </header>
+    <main>
+        <section class="photo-section">
+            <img src="img/about_106/112111106.JPG" alt="楊于瑩">
+            <div>
+                <div class="name">楊于瑩</div>
+                <div class="handle">@yang.720_</div>
+            </div>
+        </section>
+        <section>
+            <h2>自我介紹</h2>
+            <p>你好！我是楊于瑩，目前就讀於亞東科技大學資訊管理系。我對科技和數據分析充滿熱情，並且熱衷於學習和探索新知識。個性偏文靜的我，休閒時刻喜歡追劇和看漫畫，是一名典型的INTP-T。在學習之餘，這些愛好讓我能夠放鬆並激發創意。我希望通過這個網站，與大家分享我的經歷和作品，並結識更多志同道合的朋友。
+            </p>
+        </section>
+        <section>
+            <h2>本次專案負責部分</h2>
+            <p>我於本次網頁專案「星穹鐵道-仿作」主要負責角色介紹頁面以及簡報製作參與。</p>
+            <div class="work">
+                <div class="work-item">
+                    <a href="characters.html">
+                        <img src="img/about_106/c.jpeg" alt="">
+                        <p>角色介紹頁面</p>
+                    </a>
+                </div>
+
+                <div class="work-item">
+                    <a
+                        href="https://www.canva.com/design/DAGZniMMzDM/FXc-xhl6UDIR_ybtUAqkLQ/edit?utm_content=DAGZniMMzDM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+                        <img src="img/about_106/ppt.png" alt="">
+                        <p>星穹鐵道-仿作</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>專業證照及證書</h2>
+            <p>我專注於以下領域：</p>
+            <div class="certificate">
+                <div class="certificate-item">
+                    <img src="img/about_106/Certificate-Python.png" alt="">
+                    <p>TQC+基礎程式語言 Python3</p>
+                </div>
+                <div class="certificate-item">
+                    <img src="img/about_106/Certificate-HTML.jpeg" alt="">
+                    <p>網頁設計丙級證照</p>
+                </div>
+                <div class="certificate-item">
+                    <img src="img/about_106/Certificate-Ai2.jpg" alt="">
+                    <p>TQC+基礎創意App程式設計</p>
+                </div>
+
+            </div>
+        </section>
+        <section>
+            <h2>興趣愛好</h2>
+            <p>在學習之外，我喜歡：欣賞漫畫、觀看影集、以及聽Podcast。這些活動讓我保持創意與活力。</p>
+            <div class="hobby">
+                <div class="hobby-item">
+                    <a href="https://www.webtoons.com/zh-hant/adaptation/wufakangju/list?title_no=1549">
+                        <img src="img/about_106/comics.jpeg" alt="無法抗拒的他">
+                        <p>無法抗拒的他</p>
+                    </a>
+                </div>
+                <div class="hobby-item">
+                    <a href="https://program.imbc.com/bokjoo">
+                        <img src="img/about_106/drama.jpg" alt="舉重妖精金福珠">
+                        <p>舉重妖精金福珠</p>
+                    </a>
+                </div>
+                <div class="hobby-item">
+                    <a
+                        href="https://podcasts.apple.com/tw/podcast/%E5%A5%BD%E5%91%B3%E5%B0%8F%E5%A7%90%E9%96%8B%E6%9D%9F%E7%B8%9B%E6%88%91%E9%82%84%E4%BD%A0%E5%8E%9F%E5%BD%A2/id1522773953">
+                        <img src="img/about_106/podcast.webp" alt="好味小姐Podcast">
+                        <p>好味小姐Podcast</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <h2>聯絡方式</h2>
+            <p>歡迎透過以下方式聯絡我：</p>
+            <ul>
+                <li>Email: <a href="mailto:a0932302048@gmail.com">a0932302048@gmail.com</a></li>
+                <li>Instagram: <a href="https://www.instagram.com/yang.720_/"
+                        target="_blank">https://www.instagram.com/yang.720_/</a></li>
+                <li>GitHub: <a href="https://github.com/ying720" target="_blank">https://github.com/ying720</a></li>
+            </ul>
+            <a href="index.html" class="button">回首頁</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 by Yu Ying,Ying 版權所有。</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告詳情 - 崩壞：星穹鐵道</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url(img/news/background.png) no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        /* 導覽欄 */
+        .navbar {
+            display: flex;
+            justify-content: center; /* 導覽欄內容置中 */
+            align-items: center; /* 垂直置中 */
+            padding: 0.5rem 1rem; /* 減小內邊距 */
+            background-color: #000; /* 背景顏色保持不變 */
+        }
+
+        /* 導覽連結列表 */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
+            gap: 1.2rem; /* 調整連結間距 */
+            margin: 0; /* 移除預設 margin */
+            padding: 0; /* 移除預設 padding */
+        }
+
+        /* 導覽連結文字 */
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center; /* 確保連結內文字垂直居中 */
+            padding: 0.3rem 0.8rem; /* 增加按鈕間距 */
+        }
+
+        /* 導覽按鈕樣式 */
+        .nav-links .button, .nav-links .button1 {
+            background-color: #f0c24b;
+            padding: 0.3rem 0.8rem; /* 調整內邊距 */
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem; /* 調小字體 */
+            display: flex;
+            align-items: center; /* 內容垂直置中 */
+            justify-content: center; /* 水平置中 */
+            color: #000; /* 文字顏色為黑色 */
+        }
+
+        .nav-links .button1 {
+            background-color: transparent; /* 使登入按鈕背景透明 */
+            color: #fff; /* 文字顏色設為白色 */
+            border: 2px solid #fff; /* 增加白色邊框 */
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links .button1:hover {
+            background-color: #f0c24b; /* 滑鼠懸停時變更背景色 */
+            color: #000; /* 文字顏色變為黑色 */
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .content {
+            width: 70%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px; /*圓角*/
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /*陰影*/
+        }
+
+        .content h1 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .content .date {
+            color: #757575;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .content p {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .sidebar {
+            width: 28%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: #333;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar .news-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .sidebar .news-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .sidebar .news-item a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        .sidebar .news-item a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar .news-item .date {
+            font-size: 0.8rem;
+            color: #757575;
+        }
+
+        h4 {
+            font-weight: bold; /* 加粗文字 */
+            font-size: 1.2rem; /* 設定字體大小 */
+            color: #333; /* 設定文字顏色為深灰色 */
+            margin: 10px 0; /* 設定上下外邊距 */
+        }
+        h5 {
+            font-weight: bold; /* 加粗文字 */
+            font-size: 1rem; /* 設定字體大小 */
+            color: #333; /* 設定文字顏色為深灰色 */
+            margin: 10px 0; /* 設定上下外邊距 */
+        }
+
+        /* 視窗遮罩樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* 登入_視窗樣式 */
+        .modal-content2 {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+       /* 容器樣式，讓兩個連結分居左右 */
+        .link-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding: 0 10px; /* 左右內間距 */
+        }
+
+        /* 兩個連結的基礎樣式 */
+        .forgot-link,
+        .now-link {
+            text-decoration: none;
+            font-size: 0.9rem; /* 字體大小 */
+            font-weight: bold; /* 加粗 */
+            color: #f89c35; /* 橙色字體顏色 */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* 滑鼠懸停時變化 */
+        .forgot-link:hover,
+        .now-link:hover {
+            color: #e67e22; /* 深橙色 */
+        }
+
+        .third-party-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center; /* 水平置中 */
+        }
+
+        .close-btn {
+            display: block;
+            background-color: #f0c24b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close-btn:hover {
+            background-color: #d4a233;
+        }
+
+        /* 遇到問題_小視窗內容 */
+        .forgot-modal-content {
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 標題樣式 */
+        .forgot-modal-content h2 {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        /* 列表樣式 */
+        .forgot-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .forgot-list a {
+            text-decoration: none; /* 移除超链接下划线 */
+            color: inherit; /* 继承父元素颜色 */
+            display: flex; /* 让内容保持水平排列 */
+            align-items: center;
+            gap: 10px; /* 图标和文本间距 */
+        }
+
+        .forgot-list li {
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .forgot-list li:hover {
+            background: #fff8e1; /* 悬停时背景颜色 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 图标样式 */
+        .forgot-list .icon {
+            font-size: 1.2rem;
+            color: #ffb300; /* 黄色图标 */
+        }
+
+        /* 關閉按鈕樣式 */
+        .forgot-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-close:hover {
+            color: #333;
+        }
+
+        /* 表單輸入框 */
+        .register-modal-content .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* 發送驗證碼按鈕 */
+        .send-code-btn {
+            background-color: #f89c35;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+
+        .send-code-btn:hover {
+            background-color: #e67e22;
+        }
+
+        /* 同意條款 */
+        .agreement, .subscription {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .agreement a, .subscription a {
+            color: #f89c35;
+            text-decoration: none;
+        }
+
+        .register-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .register-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .already-have-account {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* 立即下載_視窗樣式 */
+        .modal-content1 {
+            background: url(img/download/download_game.png) no-repeat center center; /* 圖片居中，無重複 */
+            background-size: contain; /* 確保整張圖片在容器內完整顯示 */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            display: flex; /* 添加flex布局 */
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .qr-code {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .download-buttons {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .platform-btn img {
+            max-width: 120px;
+            cursor: pointer;
+        }
+
+        .platform-btn {
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .platform-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-btn {
+            background-color: #f0c24b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .close-btn:hover {
+            background-color: #d4a233;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 導覽欄 -->
+    <header class="navbar">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="characters.html">角色</a></li>
+                <li><a href="news.html">公告</a></li>
+                <li><a href="about_106.html">112111106</a></li>
+                <li><a href="about_108.html">112111108</a></li>
+                <li><a href="about_127.html">112111127</a></li>
+                <li><a id="login-btn" class="button1">登入</a></li>
+                <li><a id="download-btn" class="button">立即下載</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- 公告內容 -->
+        <div class="content">
+            <h1>2.7版本「在第八日啟程」版本更新說明</h1>
+            <p class="date">2024/12/04</p>
+            <img src="img/news/12-4.png" alt="更新預告">
+            <p>有人將會歸來，有人正欲離去。夢境是如此朦朧不定——若想看清前路，必當回望往昔。</p>
+            <p>您好，開拓者：歡迎來到2.7版本「在第八日啟程」！</p>
+            <h4>▌更新及補償說明</h4>
+            <h5>■更新時間</h5>
+            <p>2024/12/04 06:00:00（UTC+8）開始，預計5個小時完成。</p>
+            <h5>■補償說明</h5>
+            <h5>■●停服更新補償</h5>
+            <p>補償內容：星瓊×300</p>
+            <p>補償對象：2024/12/04 06:00:00（UTC+8）前，開拓等級至少達到4級的開拓者</p>
+            <p>※領取時間截至2.7版本結束前。</p>
+        </div>
+
+        <!-- 最新資訊 -->
+        <div class="sidebar">
+            <h2>最新資訊</h2>
+            <div class="news-item">
+                <a href="page2.html"><img src="img/news/12-3.jpg" alt="公告"></a>
+                <div>
+                    <a href="page2.html">img《崩壞：星穹鐵道》星期日角色預告——「獨奏者」</a>
+                    <div class="date">2024/12/03</div>
+                </div>
+            </div>
+            <div class="news-item">
+                <a href="page3.html"><img src="img/news/12-2.jpg" alt="公告"></a>
+                <div>
+                    <a href="page3.html">2.7版本預先下載現已開放！</a>
+                    <div class="date">2024/12/02</div>
+                </div>
+            </div>
+            <div class="news-item">
+                <a href="page4.html"><img src="img/news/11-29.jpg" alt="公告"></a>
+                <div>
+                    <a href="page4.html">《崩壞：星穹鐵道》千星紀遊預告：「太陽落下之後」</a>
+                    <div class="date">2024/11/29</div>
+                </div>
+            </div>
+            <div class="news-item">
+                <a href="page5.html"><img src="img/news/11-27.jpg" alt="公告"></a>
+                <div>
+                    <a href="page5.html">《崩壞：星穹鐵道》走近星穹——「星期日：今天怎麼才星期三！」</a>
+                    <div class="date">2024/11/27</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登入_互動視窗 -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content2">
+            <h2>帳號登入</h2>
+            <form>
+                <input type="text" placeholder="使用者名稱/電子信箱" class="form-input">
+                <input type="password" placeholder="密碼" class="form-input">
+                <button type="submit" class="login-btn">登入</button>
+            </form>
+            <div class="link-container">
+                <a href="#" class="forgot-link" id="forgot-link">遇到問題</a>
+                <a href="#" class="now-link">立即註冊</a>
+            </div>  
+            <div class="container"><button class="close-btn" id="login-close-btn">關閉</button></div>
+        </div>
+    </div>
+
+    <!-- 遇到問題_互動視窗 -->
+    <div class="modal-overlay" id="forgot-modal">
+        <div class="modal-content2 forgot-modal-content">
+            <!-- 關閉按鈕 -->
+            <button class="close-btn forgot-close" id="forgot-close-btn">×</button>
+            <h2>遇到問題</h2>
+            <ul class="forgot-list">
+                <li>
+                    <a href="https://account.hoyoverse.com/login-platform/index.html?st=https%3A%2F%2Fhsr.hoyoverse.com%2Fzh-tw%2Fhome&token_type=4&client_type=4&app_id=dnci5hp1qxa8&game_biz=hkrpg_global&lang=zh-tw&theme=light-hkrpg&ux_mode=redirect&iframe_level=1&account=#/forgot-password" target="_blank">
+                        <span class="icon">🔒</span> 忘記密碼
+                    </a>
+                </li>
+                <li>
+                    <a href="https://account.hoyoverse.com/index.html?hide_back=1&hide_header=1&hide_sidebar=1&hide_footer=1&lang=zh-tw#/about/questions" target="_blank">
+                        <span class="icon">❓</span> 常見問題
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 註冊_互動視窗 -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal-content2 register-modal-content">
+            <!-- 關閉按鈕 -->
+            <button class="close-btn register-close" id="register-close-btn">×</button>
+            <h2>註冊</h2>
+            <form>
+                <input type="email" placeholder="信箱" class="form-input">
+                <input type="text" placeholder="驗證碼" class="form-input">
+                <button type="button" class="send-code-btn">發送</button>
+                <input type="password" placeholder="請輸入密碼" class="form-input">
+                <input type="password" placeholder="請再次輸入密碼" class="form-input">
+                <label class="agreement">
+                    <input type="checkbox"> 我已閱讀並同意 
+                    <a href="#">使用條款</a> 和 <a href="#">隱私政策</a>
+                </label>
+                <label class="subscription">
+                    <input type="checkbox" checked> 同意訂閱促銷電子郵件（可隨時取消）
+                </label>
+                <button type="submit" class="register-btn">註冊</button>
+            </form>
+            <p class="already-have-account">已有帳號？ <a href="#" id="back-to-login">登入</a></p>
+        </div>
+    </div>
+
+    <!-- 立即下載_互動視窗 -->
+    <div class="modal-overlay" id="download-modal">
+        <div class="modal-content1">
+            <div class="qr-code">
+                <img src="img/download/qr_code.png" alt="QR Code">
+            </div>
+            <div class="download-buttons">
+                <div class="button-row">
+                    <a class="platform-btn"><img src="img/download/ps5.png" alt="PS5"></a>
+                    <a href="https://sg-public-api.hoyoverse.com/event/download_porter/trace/hkrpg_global/oswebpc/default?url=https%3A%2F%2Fhsr.hoyoverse.com%2Fzh-tw%2Fhome"  class="platform-btn"><img src="img/download/hoyoplay.png" alt="HoYoPlay"></a>
+                </div>
+                <div class="button-row">
+                    <a href="https://apps.apple.com/us/app/honkai-star-rail/id1599719154?pid=OPT_official+site&c=ios_download&is_retargeting=true&af_reengagement_window=lifetime" class="platform-btn">
+                        <img src="img/download/appstore.png" alt="App Store">
+                    </a>
+                    <a href="https://hsr.onelink.me/LXRY?pid=OPT_official%20site&c=android_download&af_ios_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&af_android_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&af_web_dp=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&is_retargeting=true&af_reengagement_window=lifetime" class="platform-btn">
+                        <img src="img/download/googleplay.png" alt="Google Play">
+                    </a>
+                    <a href="https://store.epicgames.com/p/honkai-star-rail" class="platform-btn">
+                        <img src="img/download/stote.png" alt="Epic Games">
+                    </a>
+                </div>
+                <button class="close-btn" id="download-close-btn">關閉</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 選取登入按鈕與視窗
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const loginCloseBtn = loginModal.querySelector('.close-btn');
+
+        // 選取立即下載按鈕與視窗
+        const downloadBtn = document.getElementById('download-btn');
+        const downloadModal = document.getElementById('download-modal');
+        const downloadCloseBtn = downloadModal.querySelector('.close-btn');
+
+        // 開啟登入視窗
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        // 關閉登入視窗
+        loginCloseBtn.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        // 開啟立即下載視窗
+        downloadBtn.addEventListener('click', () => {
+            downloadModal.style.display = 'flex';
+        });
+
+        // 關閉立即下載視窗
+        downloadCloseBtn.addEventListener('click', () => {
+            downloadModal.style.display = 'none';
+        });
+
+        // 點擊遮罩關閉視窗
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        downloadModal.addEventListener('click', (e) => {
+            if (e.target === downloadModal) {
+                downloadModal.style.display = 'none';
+            }
+        });
+
+        // 選取遇到問題按鈕與視窗
+        const forgotLink = document.getElementById('forgot-link');
+        const forgotModal = document.getElementById('forgot-modal');
+        const forgotCloseBtn = forgotModal.querySelector('.close-btn');
+
+        // 開啟遇到問題視窗
+        forgotLink.addEventListener('click', (e) => {
+            e.preventDefault(); // 防止預設行為（跳轉）
+            forgotModal.style.display = 'flex';
+        });
+
+        // 關閉遇到問題視窗
+        forgotCloseBtn.addEventListener('click', () => {
+            forgotModal.style.display = 'none';
+        });
+
+        // 點擊遮罩關閉視窗
+        forgotModal.addEventListener('click', (e) => {
+            if (e.target === forgotModal) {
+                forgotModal.style.display = 'none';
+            }
+        });
+        
+        // 立即註冊按鈕與視窗
+        const nowLink = document.querySelector('.now-link');
+        const registerModal = document.getElementById('register-modal');
+        const registerCloseBtn = document.getElementById('register-close-btn');
+        const backToLogin = document.getElementById('back-to-login');
+
+        // 開啟註冊視窗
+        nowLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'flex';
+        });
+
+        // 關閉註冊視窗
+        registerCloseBtn.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+        });
+
+        // 返回登入視窗
+        backToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            document.getElementById('login-modal').style.display = 'flex';
+        });
+
+        // 點擊遮罩關閉視窗
+        registerModal.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+    </script>
+    
+
+</body>
+</html>

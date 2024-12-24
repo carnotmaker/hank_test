@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色 |《崩壞:星穹鐵道》官方網站——願此行，終抵群星</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+</head>
+
+<style>
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+        
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url(/img/news/background.png) no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* 導覽欄 */
+.navbar {
+    display: flex;
+    justify-content: center; /* 導覽欄內容置中 */
+    align-items: center; /* 垂直置中 */
+    padding: 0.5rem 1rem; /* 減小內邊距 */
+    background-color: #000; /* 背景顏色保持不變 */
+}
+
+/* 導覽連結列表 */
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
+    gap: 1.2rem; /* 調整連結間距 */
+    margin: 0; /* 移除預設 margin */
+    padding: 0; /* 移除預設 padding */
+}
+
+/* 導覽連結文字 */
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center; /* 確保連結內文字垂直居中 */
+    padding: 0.3rem 0.8rem; /* 增加按鈕間距 */
+}
+
+/* 導覽按鈕樣式 */
+.nav-links .button, .nav-links .button1 {
+    background-color: #f0c24b;
+    padding: 0.3rem 0.8rem; /* 調整內邊距 */
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 0.9rem; /* 調小字體 */
+    display: flex;
+    align-items: center; /* 內容垂直置中 */
+    justify-content: center; /* 水平置中 */
+    color: #000; /* 文字顏色為黑色 */
+}
+
+.nav-links .button1 {
+    background-color: transparent; /* 使登入按鈕背景透明 */
+    color: #fff; /* 文字顏色設為白色 */
+    border: 2px solid #fff; /* 增加白色邊框 */
+    transition: background-color 0.3s ease;
+}
+
+.nav-links .button1:hover {
+    background-color: #f0c24b; /* 滑鼠懸停時變更背景色 */
+    color: #000; /* 文字顏色變為黑色 */
+}
+
+/* 開始 */
+/* 團體選單容器 */
+.group-container {
+    position: absolute;
+    top: 110px;
+    left: 20px; /* 更貼近畫面左側 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* 減少按鈕之間的間距 */
+    transform-origin: top left;
+}
+
+/* role 區塊 */
+.role {
+    margin-left: 150px; /* 減少角色面板的左側距離 */
+    padding: 20px;
+    transform-origin: top left;
+}
+
+/* 當視窗縮小至 1024px 寬度以下 */
+@media (max-width: 1024px) {
+    .group-container {
+        left: 15px; /* 團體選單更貼近左側 */
+        gap: 4px; /* 按鈕之間更緊密 */
+        transform: scale(0.85); /* 整體縮小 */
+    }
+
+    .role {
+        margin-left: 120px; /* 角色面板距離減少 */
+        transform: scale(0.85); /* 整體縮小 */
+    }
+}
+
+/* 當視窗縮小至 768px 寬度以下 */
+@media (max-width: 768px) {
+    .group-container {
+        left: 10px; /* 團體選單更緊貼左側 */
+        gap: 3px; /* 按鈕之間距離更小 */
+        transform: scale(0.75); /* 縮小比例更高 */
+    }
+
+    .role {
+        margin-left: 100px; /* 繼續縮小角色面板左側距離 */
+        transform: scale(0.75); /* 縮小比例更高 */
+    }
+}
+
+/* 當視窗縮小至 480px 寬度以下 */
+@media (max-width: 480px) {
+    .group-container {
+        left: 5px; /* 團體選單最貼近左側 */
+        gap: 2px; /* 最小間距 */
+        transform: scale(0.65); /* 縮小比例更高 */
+    }
+
+    .role {
+        margin-left: 60px; /* 角色面板緊貼至左側 */
+        transform: scale(0.65); /* 縮小比例更高 */
+    }
+}
+
+/*結束*/
+
+.content {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-image: url(/img/night.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+    /* 確保圖片覆蓋整個區域並保持比例 */
+    height: 100vh;
+    /* 滿版高度 */
+    width: 100vw;
+    /* 滿版寬度 */
+}
+
+/* 主容器 */
+.page-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+/* 左側團體選擇容器 */
+/* 團體容器 */
+.group-container {
+    position: absolute;
+    top: 110px;
+    left: 80px; /* 調整 left 值，將選單靠近中間 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* 增加按鈕間距，視覺更舒適 */
+}
+
+
+
+/* 上下鍵按鈕 */
+.scroll-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.scroll-button img {
+    width: 30px;
+    height: 30px;
+}
+
+/* 團體列表 */
+.group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 團體按鈕 */
+.group-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+}
+
+.group-button img {
+    width: 90px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.group-button:hover img {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+
+/* 右側角色面板 */
+/* 角色介紹版面設定 */
+.character-page {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-image: url(/img/characters/Background_of_CharacterIntroduction.JPG); /* 背景圖 */
+    background-size: cover;
+    background-position: center;
+    width: 1000px; /* 固定寬度 */
+    height: 500px; /* 高度調整為 500px */
+    margin: 20px auto; /* 置中 */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+    color: #fff;
+    position: relative; /* 讓底部按鈕參考此區塊 */
+}
+
+
+.character-page h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.character-page img {
+    width: 150px; /* 縮小圖片寬度 */
+    height: auto;
+    margin-bottom: 20px;
+
+}
+
+.character-page p {
+    font-size: 16px;
+    line-height: 1.8; /* 增加行距 */
+    color: #ddd;
+    margin: 0 20px; /* 左右留白 */
+    max-width: 700px; /* 控制文本寬度 */
+    word-wrap: break-word; /* 防止文本溢出 */
+}
+
+
+.character-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(img/characters/Background_of_CharacterIntroduction.JPG);
+    background-repeat: no-repeat;
+    background-size: 1000px;
+    padding: 70px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 1000px;
+    text-align: left;
+    height: 500px;
+}
+
+/* 左側角色介紹區域 */
+/* 左側角色資訊 */
+.character-info {
+    flex: 1;
+    max-width: 50%; /* 左側佔 50% 寬度 */
+    text-align: left;
+}
+
+.character-info h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #575251; /* 角色黃金色標題 */
+}
+
+.character-info p {
+    font-size: 18px;
+    line-height: 1.6;
+    white-space: pre-line; /* 保留換行 */
+    color: #535151;
+}
+
+
+/* 右側角色圖片區域 */
+/* 右側角色圖片 */
+.character-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.character-image img {
+    width: 570px; /* 圖片大小適配高度 */
+    height: auto;
+    border: none;
+    border-radius: 0px;
+    box-shadow: none;
+
+}
+
+/* 角色選擇按鈕 */
+/* 按鈕容器 */
+.character-selector {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* 按鈕之間的間距 */
+    flex-wrap: wrap;
+    /* 允許內容換行 */
+    max-width: 800px;
+    /* 設定最大寬度 */
+}
+
+/* 按鈕樣式 */
+.character-icon-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 60px;
+    /* 按鈕固定寬度 */
+    height: 70px;
+}
+
+.character-icon-button:hover {
+    background-color: #777;
+}
+
+/* 圖標樣式 */
+.character-icon-button img.icon {
+    width: 60px;
+    height: 70px;
+    /* border-radius: 50%; 圖標設為圓形 */
+}
+
+
+/*角色標題欄*/
+.role {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+
+.role-title {
+    background-image: url(/img/characters/h2.png);
+    background-size: 650px;
+    background-repeat: no-repeat;
+    height: 60px;
+    color: #fff;
+    display: flex;
+    /* justify-content: left; */
+    /* 水平置中 */
+    align-items: center;
+    /* 垂直置中 */
+    height: 60px;
+    padding-left: 25px;
+    /*文字與左邊的距離*/;
+    width: 500px;
+    margin-bottom: 20px;
+    margin-left: 0;/* 確保標題與面板左對齊 */
+}
+
+
+.member-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.member-button img {
+    width: 50px;
+    height: 60px;
+    opacity: 0.7;
+}
+
+.member-button.active img,
+.member-button:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+
+
+/* 底部角色選擇按鈕 */
+.character-buttons {
+    position: absolute;
+    bottom: 1px; /* 原本為 10px，增加 5px 往下移動 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+
+.character-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.character-buttons button img {
+    width: 60px;
+    height: 65px;
+
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.character-buttons button:hover,
+.character-buttons button.active {
+    opacity: 1;
+    transform: scale(1.1); /* 放大效果 */
+}
+
+/* 視窗遮罩樣式 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 登入_視窗樣式 */
+.modal-content2 {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 容器樣式，讓兩個連結分居左右 */
+.link-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0 10px; /* 左右內間距 */
+}
+
+/* 兩個連結的基礎樣式 */
+.forgot-link,
+.now-link {
+    text-decoration: none;
+    font-size: 0.9rem; /* 字體大小 */
+    font-weight: bold; /* 加粗 */
+    color: #f89c35; /* 橙色字體顏色 */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+    /* 滑鼠懸停時變化 */
+.forgot-link:hover,
+.now-link:hover {
+    color: #e67e22; /* 深橙色 */
+}
+
+.third-party-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* 水平置中 */
+}
+
+.close-btn {
+    display: block;
+    background-color: #f0c24b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+        
+.close-btn:hover {
+    background-color: #d4a233;
+}
+
+/* 遇到問題_小視窗內容 */
+.forgot-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 標題樣式 */
+.forgot-modal-content h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* 列表樣式 */
+.forgot-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.forgot-list a {
+    text-decoration: none; /* 移除超链接下划线 */
+    color: inherit; /* 继承父元素颜色 */
+    display: flex; /* 让内容保持水平排列 */
+    align-items: center;
+    gap: 10px; /* 图标和文本间距 */
+}
+
+.forgot-list li {
+    padding: 10px 15px;
+    margin: 5px 0;
+    background: #f9f9f9;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.forgot-list li:hover {
+    background: #fff8e1; /* 悬停时背景颜色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 图标样式 */
+.forgot-list .icon {
+    font-size: 1.2rem;
+    color: #ffb300; /* 黄色图标 */
+}
+
+/* 關閉按鈕樣式 */
+.forgot-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.forgot-close:hover {
+    color: #333;
+}
+
+/* 註冊視窗樣式 */
+.register-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+/* 關閉按鈕 */
+.register-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.register-close:hover {
+    color: #333;
+}
+
+/* 表單輸入框 */
+.register-modal-content .form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 發送驗證碼按鈕 */
+.send-code-btn {
+    background-color: #f89c35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+.send-code-btn:hover {
+    background-color: #e67e22;
+}
+
+/* 同意條款 */
+.agreement, .subscription {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.agreement a, .subscription a {
+    color: #f89c35;
+    text-decoration: none;
+}
+
+.register-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.register-btn:hover {
+    background-color: #0056b3;
+}
+
+.already-have-account {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* 立即下載_視窗樣式 */
+.modal-content1 {
+    background: url(img/download/download_game.png) no-repeat center center; /* 圖片居中，無重複 */
+    background-size: contain; /* 確保整張圖片在容器內完整顯示 */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    display: flex; /* 添加flex布局 */
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.qr-code {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-code img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.download-buttons {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.platform-btn img {
+    max-width: 120px;
+    cursor: pointer;
+}
+
+.platform-btn {
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.platform-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+    background-color: #f0c24b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-btn:hover {
+    background-color: #d4a233;
+}
+
+</style>
+
+<body>
+    <!-- 導覽欄 -->
+    <header class="navbar">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="characters.html">角色</a></li>
+                <li><a href="news.html">公告</a></li>
+                <li><a href="about_106.html">112111106</a></li>
+                <li><a href="about_108.html">112111108</a></li>
+                <li><a href="about_127.html">112111127</a></li>
+                <li><a id="login-btn" class="button1">登入</a></li>
+                <li><a id="download-btn" class="button">立即下載</a></li>
+        </nav>
+    </header>
+
+    <!-- 人物介紹選單頁面 -->
+    <div class="content">
+        <div class="group-container">
+            <button class="scroll-button" id="scroll-up">
+                <img src="img/characters/left_button/up.png" alt="向上" />
+            </button>
+            <div class="group-list">
+                <button onclick="changeGroup(1)"><img src="img/characters/group/AA.png" width="100px"
+                        alt="星穹列車"><br>星穹列車</button>
+                <br>
+                <button onclick="changeGroup(2)"><img src="img/characters//group/BB.png" width="100px"
+                        alt="仙舟聯盟"><br>仙舟聯盟</button>
+                <br>
+                <button onclick="changeGroup(3)"><img src="img/characters/group/CC.png" width="100px"
+                        alt="星核獵人"><br>星核獵人</button>
+                <br>
+                <button onclick="changeGroup(4)"><img src="img/characters/group/DD.png" width="100px"
+                        alt="星際和平公司"><br>星際和平公司</button>
+                <br>
+                <button onclick="changeGroup(5)"><img src="img/characters/group/EE.png" width="100px"
+                        alt="伊諾康尼"><br>伊諾康尼</button>
+                <br>
+                <button onclick="changeGroup(6)"><img src="img/characters/group/FF.png" width="100px"
+                        alt="銀河"><br>銀河</button>
+                <br>
+                <button onclick="changeGroup(7)"><img src="img/characters/group/GG.png" width="100px"
+                        alt="太空站「黑塔」"><br>太空站「黑塔」</button>
+                <br>
+                <button onclick="changeGroup(8)"><img src="img/characters/group/HH.png" width="100px"
+                        alt="貝洛伯格"><br>貝洛伯格</button>
+            </div>
+            <button class="scroll-button" id="scroll-down">
+                <img src="img/characters/left_button/down.png" alt="向下" />
+            </button>
+        </div>
+
+        <div class="role">
+            <div class="role-title">
+                <h2>角色</h2>
+            </div>
+            <!-- 右側角色面板 -->
+            <main class="character-page">
+                <!-- <section class="character-display"> -->
+                <!-- 左側角色介紹 -->
+                <div class="character-info">
+                    <h2 id="character-name">姬子</h2>
+                    <p id="character-description">
+                        充滿冒險精神的科學家，少女時代在故鄉遭遇了淺淺的星穹列車。幾年後，當姬子修復列車駛入群星時，她意識到這只是一個開始。即使同行的人們面向不同的方向，他們仍然在同一片星空下。
+                    </p>
+                </div>
+
+                <!-- 右側角色圖片 -->
+                <div class="character-image">
+                    <img id="character-img" src="img/characters/CharacterDrawing/A/A01.png" alt="姬子">
+                </div>
+
+                <!-- 底部角色切換按鈕 -->
+                <div class="character-buttons">
+                    <button class="active" data-index="0">
+                        <img src="img/characters/RoleIcon/A/a01.png" alt="姬子">
+                    </button>
+                    <button data-index="1">
+                        <img src="img/characters/RoleIcon/A/a02.png" alt="瓦爾特">
+                    </button>
+                    <button data-index="2">
+                        <img src="img/characters/RoleIcon/A/a03.png" alt="丹恆">
+                    </button>
+                </div>
+
+                <!-- </section> -->
+
+                <!-- 角色面板下方橫向成員選擇按鈕 -->
+                <section id="character-selector" class="character-selector"></section>
+            </main>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- 登入_互動視窗 -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content2">
+            <h2>帳號登入</h2>
+            <form>
+                <input type="text" placeholder="使用者名稱/電子信箱" class="form-input">
+                <input type="password" placeholder="密碼" class="form-input">
+                <button type="submit" class="login-btn">登入</button>
+            </form>
+            <div class="link-container">
+                <a href="#" class="forgot-link" id="forgot-link">遇到問題</a>
+                <a href="#" class="now-link">立即註冊</a>
+            </div>         
+            <div class="container"><button class="close-btn" id="login-close-btn">關閉</button></div>
+        </div>
+    </div>
+
+    <!-- 遇到問題_互動視窗 -->
+    <div class="modal-overlay" id="forgot-modal">
+        <div class="modal-content2 forgot-modal-content">
+            <!-- 關閉按鈕 -->
+            <button class="close-btn forgot-close" id="forgot-close-btn">×</button>
+            <h2>遇到問題</h2>
+            <ul class="forgot-list">
+                <li>
+                    <a href="https://account.hoyoverse.com/login-platform/index.html?st=https%3A%2F%2Fhsr.hoyoverse.com%2Fzh-tw%2Fhome&token_type=4&client_type=4&app_id=dnci5hp1qxa8&game_biz=hkrpg_global&lang=zh-tw&theme=light-hkrpg&ux_mode=redirect&iframe_level=1&account=#/forgot-password" target="_blank">
+                        <span class="icon">🔒</span> 忘記密碼
+                    </a>
+                </li>
+                <li>
+                    <a href="https://account.hoyoverse.com/index.html?hide_back=1&hide_header=1&hide_sidebar=1&hide_footer=1&lang=zh-tw#/about/questions" target="_blank">
+                        <span class="icon">❓</span> 常見問題
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 註冊_互動視窗 -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal-content2 register-modal-content">
+            <!-- 關閉按鈕 -->
+            <button class="close-btn register-close" id="register-close-btn">×</button>
+            <h2>註冊</h2>
+            <form>
+                <input type="email" placeholder="信箱" class="form-input">
+                <input type="text" placeholder="驗證碼" class="form-input">
+                <button type="button" class="send-code-btn">發送</button>
+                <input type="password" placeholder="請輸入密碼" class="form-input">
+                <input type="password" placeholder="請再次輸入密碼" class="form-input">
+                <label class="agreement">
+                    <input type="checkbox"> 我已閱讀並同意 
+                    <a href="#">使用條款</a> 和 <a href="#">隱私政策</a>
+                </label>
+                <label class="subscription">
+                    <input type="checkbox" checked> 同意訂閱促銷電子郵件（可隨時取消）
+                </label>
+                <button type="submit" class="register-btn">註冊</button>
+            </form>
+            <p class="already-have-account">已有帳號？ <a href="#" id="back-to-login">登入</a></p>
+        </div>
+    </div>
+
+    <!-- 立即下載_互動視窗 -->
+    <div class="modal-overlay" id="download-modal">
+        <div class="modal-content1">
+            <div class="qr-code">
+                <img src="img/download/qr_code.png" alt="QR Code">
+            </div>
+            <div class="download-buttons">
+                <div class="button-row">
+                    <a class="platform-btn"><img src="img/download/ps5.png" alt="PS5"></a>
+                    <a href="https://sg-public-api.hoyoverse.com/event/download_porter/trace/hkrpg_global/oswebpc/default?url=https%3A%2F%2Fhsr.hoyoverse.com%2Fzh-tw%2Fhome"  class="platform-btn"><img src="img/download/hoyoplay.png" alt="HoYoPlay"></a>
+                </div>
+                <div class="button-row">
+                    <a href="https://apps.apple.com/us/app/honkai-star-rail/id1599719154?pid=OPT_official+site&c=ios_download&is_retargeting=true&af_reengagement_window=lifetime" class="platform-btn">
+                        <img src="img/download/appstore.png" alt="App Store">
+                    </a>
+                    <a href="https://hsr.onelink.me/LXRY?pid=OPT_official%20site&c=android_download&af_ios_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&af_android_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&af_web_dp=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.HoYoverse.hkrpgoversea&is_retargeting=true&af_reengagement_window=lifetime" class="platform-btn">
+                        <img src="img/download/googleplay.png" alt="Google Play">
+                    </a>
+                    <a href="https://store.epicgames.com/p/honkai-star-rail" class="platform-btn">
+                        <img src="img/download/stote.png" alt="Epic Games">
+                    </a>
+                </div>
+                <button class="close-btn" id="download-close-btn">關閉</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const groups = [
+        {
+            name: "星穹列車",
+            img: "img/characters/group/AA.png",
+            members: [
+                { name: "姬子", img: "img/characters/CharacterDrawing/A/A01.png", description: "充滿冒險精神的科學家，少女時代在故鄉遭遇了淺淺的星穹列車。\n幾年後，當姬子修復列車駛入群星時，她意識到這只是一個開始。\n即使同行的人們面向不同的方向，他們仍然在同一片星空下。", icon: "img/characters/RoleIcon/A/a01.png" },
+                { name: "瓦爾特", img: "img/characters/CharacterDrawing/A/A02.png", description: "老成持重的前逆熵盟主，耀承了「世界」之名，曾屢次拯救世界於滅亡的邊緣\n在聖方丹事件結束後，瓦爾特被迫與事件的始作者前往星門的另一側。\n連他也許自己也未曾料到，在那裡等待的，將是全新的旅途和同伴。", icon: "img/characters/RoleIcon/A/a02.png" },
+                { name: "丹恆", img: "img/characters/CharacterDrawing/A/A03.png", description: "清冷寡言的少年，持有名為「擊雲」的長槍，在列車的開拓之旅中擔任護衛。\n丹恆對自己的過往始終諱莫如深，他與火車站同行就是為了撫平自己曾親手造就的一切。\n然而，火車真的會帶著他離開「過去」嗎？", icon: "img/characters/RoleIcon/A/a03.png" },
+                { name: "三月七", img: "img/characters/CharacterDrawing/A/A04.png", description: "精靈古怪的少女，熟衷於這個年輕的女孩子應該「熱衷」的所有事，例如照相\n從一股漂流的恆冰中甦醒，卻發現自己對身世與過去都一無所獲。\n這一天，三月七「誕生」了。", icon: "img/characters/RoleIcon/A/a04.png" }
+
+            ]
+        },
+        {
+            name: "仙舟聯盟",
+            img: "img/characters/group/BB.png",
+            members: [
+                { name: "景元", img: "img/characters/CharacterDrawing/B/B01.png", description: "外表懶散、心思縝密的仙舟「羅浮」愛騎將軍\n不以危局中力挽狂瀾為智策，因此在幣事上十分下功夫，以免節外生枝。\n因其細心謀劃，仙舟承平日久，看似行事偶頻的景元反被送上綽號「閉目將軍」", icon: "img/characters/RoleIcon/B/b01.png" },
+                { name: "彥卿", img: "img/characters/CharacterDrawing/B/B02.png", description: "意氣飛揚的雲騎驍衛，仙舟「羅浮」最強劍士。\n為劍生亦為劍癡，當彥卿手中握劍時，無人敢小看這位尚在總角之年的天才。\n或許能讓手中寶劍微微收斂鋒芒的，只有時間。", icon: "img/characters/RoleIcon/B/b02.png" },
+                { name: "白露", img: "img/characters/CharacterDrawing/B/B03.png", description: "性格活潑的小女孩，持明族的「銜藥龍女」，藥到病除的名習。\n經常開出不拘一格的藥方，如「多喝熱水」、「睡一覺就好了」見不得人受苦，治病時總是閉著眼勝，一一總之病好了就行!", icon: "img/characters/RoleIcon/B/b03.png" },
+                { name: "羅刹", img: "img/characters/CharacterDrawing/B/B04.png", description: "金靈俊雅的年輕人，背著回大的棺柳。\n身為天外行商的他，不幸被捲入他舟耀浮的星核危機。\n一手情湛醫術莫名有了用武之地。", icon: "img/characters/RoleIcon/B/b04.png" },
+                { name: "停雲", img: "img/characters/CharacterDrawing/B/B05.png", description: "八面玲瓏的狐人少女，天舶司商四「鳴火」的首席代表。\n停雲天生生得一副慧心妙舌，但凡她開口，人們就免不了想聽她多說幾句，在她的調度下，仙舟的貿易慶典逐漸聲名遠揚。\n能不戰鬥就盡量不戰鬥，能勸為己用就盡量勸為己用一一這便是停愛的原則。", icon: "img/characters/RoleIcon/B/b05.png" },
+            ]
+        },
+        {
+            name: "星核獵手",
+            img: "img/characters/group/CC.png",
+            members: [
+                { name: "卡芙卡", img: "img/characters/CharacterDrawing/C/C01.png", description: "在星際和平公司的通緝檔案裡，卡芙卡只留下了名字和「愛好收集大衣」的紀錄。\n人們對這位星核獵手所知甚少，只知道她是「命運的奴隸」艾利歐最信任的成員之一。\n為了到達艾利歐預見的「未來」，卡芙卡開始行動。", icon: "img/characters/RoleIcon/C/c01.png" },
+                { name: "銀狼", img: "img/characters/CharacterDrawing/C/C02.png", description: "將宇宙視為遊戲的超級駭客。\n無論怎樣棘手的防禦系統，銀狼都能輕鬆破解。她與「天才俱樂部」螺絲咕姆的電子攻防戰，現已成為駭客界的傳說。\n宇宙中造有多少尚待攻破的關卡？銀狼對此十分期待。", icon: "img/characters/RoleIcon/C/c02.png" },
+                { name: "刃", img: "img/characters/CharacterDrawing/C/C03.png", description: "棄身鋒刃的劍客，原名不詳。\n效忠於「命運的奴隸」，擁有恐怖的自癒能力。\n手持古劍作戰，劍身遍佈破碎裂痕，正如其身，亦如其心。", icon: "img/characters/RoleIcon/C/c03.png" },
+                { name: "流螢", img: "img/characters/CharacterDrawing/C/C04.png", description: "星核獵手成貝，身著機械裝甲「薩姆」的少女。\n以兵器的身分誕生，因基因改造罹患「失熵」的痛苦。\n為尋求生命的意義加入星核獵手，不斷追逐違抗命運的方式。", icon: "img/characters/RoleIcon/C/c04.png" }
+
+            ]
+        },
+        {
+            name: "星際和平公司",
+            img: "img/characters/group/DD.png",
+            members: [
+                { name: "托帕&帳帳", img: "img/characters/CharacterDrawing/D/D01.png", description: "星際和平公司旗下「策略投資部」高驗幹部托帕，帶領特媒價務糾察小組。年紀輕輕便已成為「石心十人」之一，基石為「催討黃玉」。搭檔次元攪滿「帳帳」則維敏銳感知「財富」所在，即便是保全、催債精算等工作也不在話下。如今他們正一同巡行銀河，追究各頸影響公司業務展開的債務糾紛。", icon: "img/characters/RoleIcon/D/d01.png" },
+                { name: "砂金", img: "img/characters/CharacterDrawing/D/D02.png", description: "星際和平公司「策略投資部」的高級幹部，「石心十人」之一，基石為「詭穿砂金」。\n個性張揚的風險愛好者，時常面帶笑容，真心卻難以揣測。\n旋著同命運的博弈贏得如今的地位，將人生視為一場高風險、高回報的投資，而他向來遊刃有餘。", icon: "img/characters/RoleIcon/D/d02.png" },
+                { name: "翡翠", img: "img/characters/CharacterDrawing/D/D03.png", description: "星際和平公司「策略投資部」的高級幹部「石心十人」之一，基石為「典貸翡翠」。\n冷豔優雅的放貸人，善於洞悉人心，有著名為「慈玉典押」的個人愛好。\n願意為獲得高價值的事物耐心等待，也擅長從看似一無所有的客戶身上榨取價值。", icon: "img/characters/RoleIcon/D/d03.png" }            ]
+        },
+        {
+            name: "匹諾康尼",
+            img: "img/characters/group/EE.png",
+            members: [
+                { name: "米沙", img: "img/characters/CharacterDrawing/E/E01.png", description: "乖巧懂事的「白日萝飯店」接待，夢想成為一名和爺爺一樣的銀河冒險家。\n工作十分努力，尤其擅長修理各頭機械，熱衷於飯店住客分享的星際見聞。\n希望自己快快長大，期待著早日有一天能路上探索群星的旅程。", icon: "img/characters/RoleIcon/E/e01.png" },
+                { name: "加拉赫", img: "img/characters/CharacterDrawing/E/E02.png", description: "匹諾康尼獵犬家系的治安官，也是一位不修邊幅、懶散隨性的網飲帥。\n著裝頗為散漫，調飲更是隨意，對來訪賓客以禮相待。但保有戒心。\n似乎有著緒多往事，卻從不主動提及。", icon: "img/characters/RoleIcon/E/e02.png" },
+                { name: "知更鳥", img: "img/characters/CharacterDrawing/E/E03.png", description: "出生於匹諾康尼，聞名銀河的天環族歌者，舉止從容優雅的少女。\n此次受家族宴請回到故鄉，在「諧樂大典」為眾賓獻唱一曲。\n可以依靠「同諧」的力量傳遞歌聲，在歌迷乃至萬界生靈之中展現「共嗚」。", icon: "img/characters/RoleIcon/E/e03.png" }
+            ]
+        },
+        {
+            name: "銀河",
+            img: "img/characters/group/FF.png",
+            members: [
+                { name: "銀枝", img: "img/characters/CharacterDrawing/F/F01.png", description: "「純美騎士團」的古典騎士，\n他為人正直、光明說落，高貴的天性令人敬佩—一位遊走宇宙間的獨行者，堅定踐行「純美」。\n維護「純美」在宇宙間的名譽，是銀枝的職責：履行這一義務，起手需虔誠，落槍時則將要令人心悅誠服。", icon: "img/characters/RoleIcon/F/f01.png" },
+                { name: "真理醫生", img: "img/characters/CharacterDrawing/F/F02.png", description: "直率而自我的博識學會學者，常以奇怪的石膏頭雕遮蔽面容。\n自幼便展露出過人的才智，如今卻以「庸人」自居。\n堅信智慧與創造力並不為天才獨有，致力於向全宇宙傳播知識，醫治名為愚鈍的頑疾。", icon: "img/characters/RoleIcon/F/f02.png" },
+                { name: "黃泉", img: "img/characters/CharacterDrawing/F/F03.png", description: "自稱「巡海遊俠」的旅人，本名不詳。身佩一把長刀，獨行銀河。\n淡漠寡言，劍出如紫電般迅猛，卻從來只以刀鞘戰鬥，收而不發。", icon: "img/characters/RoleIcon/F/f03.png" },
+                { name: "黑天鵝", img: "img/characters/CharacterDrawing/F/F04.png", description: "「流光憶庭」的憶者，神秘優雅的占卜師。\n常掛著溫柔的微笑，耐心聆聽他人的言語，並藉此走入「記憶」，掌握全盤資訊。\n熱衷於蒐集獨一無二的記憶，背後的想法卻難以看透。", icon: "img/characters/RoleIcon/F/f04.png" },
+            ]
+        },
+        {
+            name: "太空站「黑塔」",
+            img: "img/characters/group/GG.png",
+            members: [
+                { name: "阿蘭", img: "img/characters/CharacterDrawing/G/G01.png", description: "不善言辭的太空站「黑塔」防衛科負責人。\n雖然不懂科學研究，但為了保護珍視研究的太空站組員順利完成他們的研究，阿蘭可以拼上性命。他早已習慣疼痛，並將負傷視作勳章。\n也只有抱著佩佩時，男孩才會放下戒備，露出難得一見的笑容。", icon: "img/characters/RoleIcon/G/g01.png" },
+                { name: "艾斯妲", img: "img/characters/CharacterDrawing/G/G02.png", description: "好奇心與精力都很旺盛的少女，太空站「黑塔」的名義站長。\n無論是管理各抒己見的組員，還是直接又不失禮貌地回覆博識學會的種種刁難，對艾絲妲來說都易如反掌。\n畢竟指揮太空站.....總比繼承家業簡單吧！", icon: "img/characters/RoleIcon/G/g02.png" },
+                { name: "黑塔", img: "img/characters/CharacterDrawing/G/G03.png", description: "太空站「黑塔」真正的主人。\n身為湛藍星智商最高的人類，只做自己感興趣的事，一旦失去興趣就立刻走人一一太空站就是最好的例子。\n平時以遠程操縱的人偶形態登場：\n「跟我小時候比，勉強七分相似吧•」一一黑塔本人", icon: "img/characters/RoleIcon/G/g03.png" },
+                { name: "阮．梅", img: "img/characters/CharacterDrawing/G/G04.png", description: "氣質溫婉優雅的學者、「天才俱樂部」#81號會員、生命科學領域的專家。\n憑藉天賦與驚人的執著得到了博識尊的矚目，在秘密的角落開始了對生命本源的研究與探索。\n並因此受到黑塔邀請，同螺絲咕姆、史帝芬聯合開發了「模擬宇宙」私底下，她十分喜愛傳統戲劇與點心，對刺繡也很感興趣。", icon: "img/characters/RoleIcon/G/g04.png" },
+            ]
+        },
+        {
+            name: "貝洛伯格",
+            img: "img/characters/group/HH.png",
+            members: [
+                { name: "傑帕德", img: "img/characters/CharacterDrawing/H/H01.png", description: "高潔正直的銀槃鐵衛成衛官，出身於血脈高貴的朗道家族。\n在隨時都在遭受風雪侵凌的貝洛伯格，人們的衣食住行尚能如舊—一正是因為傑帕德與他率領的銀樂鐵衛在守護這平淡無奇的日常生活。", icon: "img/characters/RoleIcon/H/h01.png" },
+                { name: "布洛妮婭", img: "img/characters/CharacterDrawing/H/H02.png", description: "貝洛伯格「大守護者」繼承人，年輕幹練的銀樂鐵衛統領。\n布洛妮婭從小接受著嚴格的教育，具備一名「繼承人」所需的優雅舉止與親和力。\n但在看到下層區的惡劣環境後，未來的最高決策者逐漸生出了疑惑…..\n「我所受的訓練，真的能帶領人民過上他們想要的生活嗎？」", icon: "img/characters/RoleIcon/H/h02.png" },
+                { name: "希兒", img: "img/characters/CharacterDrawing/H/H03.png", description: "颯爽俊逸的「地火」成員，成長於地底危險混亂的環境，習慣獨來獨往。\n保護與被保護，壓迫與被壓迫，世界向希兒展示的始終是非黑即白的那一面一一\n直至「那名少女」的出現。", icon: "img/characters/RoleIcon/H/h03.png" },
+                { name: "克拉拉", img: "img/characters/CharacterDrawing/H/H04.png", description: "被機器人養大的女孩，有著超越年齡的通透和堅持。\n對克拉拉而言，史瓦羅理性的計算是世界法則，絕不會出錯。\n直到發現「計算」得到的結果，並不一定能帶給大家幸福。\n怯生生的女孩決定勇敢起來。", icon: "img/characters/RoleIcon/H/h04.png" },
+            ]
+        },
+    ];
+
+    let currentGroup = 0;  // 當前選中的團體索引
+    let currentMemberIndex = 0;  // 當前選中的成員索引
+    let startIndex = 0;  // 左側團體選單的起始索引
+
+    const groupList = document.querySelector(".group-list");
+    const characterButtonsContainer = document.querySelector(".character-buttons");
+
+    // 渲染團體按鈕（包含滑動邏輯）
+    const renderGroups = () => {
+        groupList.innerHTML = ""; // 清空團體列表
+        for (let i = 0; i < 3; i++) { // 顯示 3 個團體按鈕
+            const index = (startIndex + i) % groups.length;
+            const group = groups[index];
+
+            const button = document.createElement("button");
+            button.classList.add("group-button");
+            button.innerHTML = `
+                <img src="${group.img}" alt="${group.name}">
+                <br>${group.name}
+            `;
+
+            button.addEventListener("click", () => {
+                currentGroup = index; // 更新選中的團體索引
+                currentMemberIndex = 0; // 重置成員索引
+                renderCharacterPanel();
+            });
+
+            groupList.appendChild(button);
+        }
+    };
+
+    // 渲染角色面板
+    const renderCharacterPanel = () => {
+        const group = groups[currentGroup];
+        const member = group.members[currentMemberIndex];
+
+        document.getElementById("character-name").innerText = member.name;
+        document.getElementById("character-description").innerText = member.description;
+        document.getElementById("character-img").src = member.img;
+
+        // 清空並重新生成橫向角色按鈕
+        characterButtonsContainer.innerHTML = "";
+        group.members.forEach((m, index) => {
+            const button = document.createElement("button");
+            button.classList.add("character-button");
+            if (index === currentMemberIndex) button.classList.add("active");
+
+            button.innerHTML = `<img src="${m.icon}" alt="${m.name}">`;
+            button.addEventListener("click", () => {
+                currentMemberIndex = index;
+                renderCharacterPanel();
+            });
+
+            characterButtonsContainer.appendChild(button);
+        });
+    };
+
+    // 上下滑動功能
+    document.getElementById("scroll-up").addEventListener("click", () => {
+        startIndex = (startIndex - 1 + groups.length) % groups.length; // 往上滑動
+        renderGroups();
+    });
+
+    document.getElementById("scroll-down").addEventListener("click", () => {
+        startIndex = (startIndex + 1) % groups.length; // 往下滑動
+        renderGroups();
+    });
+
+    // 初始化頁面
+    renderGroups();
+    renderCharacterPanel();
+});
+
+        // 選取登入按鈕與視窗
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const loginCloseBtn = loginModal.querySelector('.close-btn');
+
+        // 選取立即下載按鈕與視窗
+        const downloadBtn = document.getElementById('download-btn');
+        const downloadModal = document.getElementById('download-modal');
+        const downloadCloseBtn = downloadModal.querySelector('.close-btn');
+
+        // 開啟登入視窗
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        // 關閉登入視窗
+        loginCloseBtn.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        // 開啟立即下載視窗
+        downloadBtn.addEventListener('click', () => {
+            downloadModal.style.display = 'flex';
+        });
+
+        // 關閉立即下載視窗
+        downloadCloseBtn.addEventListener('click', () => {
+            downloadModal.style.display = 'none';
+        });
+
+        // 點擊遮罩關閉視窗
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        downloadModal.addEventListener('click', (e) => {
+            if (e.target === downloadModal) {
+                downloadModal.style.display = 'none';
+            }
+        });
+
+        // 選取遇到問題按鈕與視窗
+        const forgotLink = document.getElementById('forgot-link');
+        const forgotModal = document.getElementById('forgot-modal');
+        const forgotCloseBtn = forgotModal.querySelector('.close-btn');
+
+        // 開啟遇到問題視窗
+        forgotLink.addEventListener('click', (e) => {
+            e.preventDefault(); // 防止預設行為（跳轉）
+            forgotModal.style.display = 'flex';
+        });
+
+        // 關閉遇到問題視窗
+        forgotCloseBtn.addEventListener('click', () => {
+            forgotModal.style.display = 'none';
+        });
+
+        // 點擊遮罩關閉視窗
+        forgotModal.addEventListener('click', (e) => {
+            if (e.target === forgotModal) {
+                forgotModal.style.display = 'none';
+            }
+        });
+
+        // 立即註冊按鈕與視窗
+        const nowLink = document.querySelector('.now-link');
+        const registerModal = document.getElementById('register-modal');
+        const registerCloseBtn = document.getElementById('register-close-btn');
+        const backToLogin = document.getElementById('back-to-login');
+
+        // 開啟註冊視窗
+        nowLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'flex';
+        });
+
+        // 關閉註冊視窗
+        registerCloseBtn.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+        });
+
+        // 返回登入視窗
+        backToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            document.getElementById('login-modal').style.display = 'flex';
+        });
+
+        // 點擊遮罩關閉視窗
+        registerModal.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
